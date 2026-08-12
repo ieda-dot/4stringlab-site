@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>4StringLab · Ukulele, jazz &amp; Brazilian harmony</title>
+<meta name="description" content="Ukulele lessons that go beyond isolated chords. Start from zero or dive into the harmony behind bossa nova, samba, choro and jazz. From Sao Paulo, Brazil." />
+<link rel="icon" type="image/png" href="assets/mark.png" />
+
+<!-- Open Graph -->
+<meta property="og:title" content="4StringLab" />
+<meta property="og:description" content="Four strings. Infinite fun. Ukulele lessons from beginner to Brazilian jazz harmony." />
+<meta property="og:image" content="assets/logo-hor.png" />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Stardos+Stencil:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#ffffff;
+    --panel:#ffffff;
+    --ink:#241c18;
+    --muted:#726b64;
+    --line:#eae6df;
+    --accent:#6c38c3;        /* purple */
+    --accent-ink:#552a9c;
+    --accent-soft:#efe8fa;
+    --gold:#f0a63a;
+    --sea:#2f5d86;           /* ocean blue from the logo */
+    --shadow:0 1px 0 rgba(0,0,0,.03), 0 14px 34px rgba(36,28,24,.06);
+    --sunset:linear-gradient(90deg,#e94f37,#f2933b,#f4d35e,#5b8cc4,#4b4fa6);
+    --maxw:960px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Inter", system-ui, -apple-system, sans-serif;
+    font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:"Stardos Stencil", "Space Grotesk", sans-serif;font-weight:700;line-height:1.14;letter-spacing:.3px}
+  h1{font-size:clamp(2.4rem,6vw,3.6rem);letter-spacing:.5px}
+  h2{font-size:clamp(1.5rem,3.4vw,2rem);letter-spacing:.5px;margin:0 0 .5rem}
+  h3{font-size:1.2rem;margin:0 0 .4rem}
+  p{margin:0 0 1rem}
+  a{color:var(--accent-ink);text-underline-offset:3px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  section{padding:72px 0;border-top:1px solid var(--line)}
+  .eyebrow{font-family:"Inter",sans-serif;font-weight:600;font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-ink);margin:0 0 .7rem}
+  .muted{color:var(--muted)}
+  .center{text-align:center}
+
+  /* language switch: show ONE language at a time (English default) */
+  body:not(.lang-pt) .pt{display:none !important}
+  body.lang-pt .en{display:none !important}
+
+  /* ukulele section marker */
+  .uke-divider{display:block;height:66px;width:auto;margin:0 0 18px}
+  .center .uke-divider{margin-left:auto;margin-right:auto}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:18px;height:62px}
+  .nav .brand{display:flex;align-items:center}
+  .nav .brand img{height:34px;width:auto;display:block}
+  .nav .links{display:flex;gap:20px;margin-left:auto}
+  .nav .links a{color:var(--ink);text-decoration:none;font-size:.9rem;font-weight:500}
+  .nav .links a:hover{color:var(--accent-ink)}
+  .lang{margin-left:14px;display:inline-flex;align-items:center;gap:12px;border:none;background:none;padding:4px;cursor:pointer;white-space:nowrap;transition:.15s}
+  .lang span{display:inline-flex;align-items:center;opacity:.38;transition:.15s;filter:grayscale(.35)}
+  .lang span .fl{font-size:1.7rem;line-height:1}
+  body:not(.lang-pt) .lang .flag-en,body.lang-pt .lang .flag-pt{opacity:1;filter:none;transform:scale(1.06)}
+  .nav-social{display:inline-flex;align-items:center;gap:15px;margin-left:22px}
+  .nav-social a{display:inline-flex;color:var(--ink);transition:.15s}
+  .nav-social a:hover{color:var(--accent);transform:translateY(-1px)}
+  .nav-social svg{display:block}
+  @media(max-width:760px){.nav .links{display:none}.nav-social{margin-left:auto}.lang{margin-left:12px}}
+
+  /* hero */
+  .hero{text-align:center;padding:60px 0 66px}
+  .hero img.logo{width:min(320px,78vw);height:auto;margin:0 auto 10px;display:block}
+  .hero h1{margin:.1rem 0 .2rem}
+  .hero h1 b{color:var(--accent);font-weight:700}
+  .hero .tag{font-family:"Space Grotesk", sans-serif;font-weight:500;font-size:1.2rem;letter-spacing:.2px;color:var(--accent);margin:.1rem 0 1.3rem}
+  .hero p.lead{max-width:660px;margin:0 auto 1.6rem;font-size:1.05rem}
+  .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-family:"Inter",sans-serif;font-weight:600;font-size:.98rem;color:var(--accent-ink);border:none;background:none;padding:0 0 3px;cursor:pointer;line-height:1.4;border-bottom:2px solid var(--accent-soft);transition:.15s}
+  .btn::after{content:"\2192";transition:transform .15s}
+  .btn:hover{border-bottom-color:var(--accent)}
+  .btn:hover::after{transform:translateX(4px)}
+  .btn.primary{border-bottom-color:var(--accent);font-weight:700}
+  .btn.small{font-size:.9rem}
+  .dl-row{display:flex;flex-direction:column;gap:10px;align-items:flex-start;margin:0}
+
+  /* free ebook highlight section */
+  .freebook{background:var(--accent-soft)}
+  .freebook-inner{display:grid;grid-template-columns:230px 1fr;gap:44px;align-items:center}
+  .freebook-cover{width:230px;height:auto;display:block;box-shadow:0 20px 44px rgba(36,28,24,.16)}
+  .freebook .eyebrow{margin-top:0}
+  @media(max-width:640px){
+    .freebook-inner{grid-template-columns:1fr;justify-items:center;text-align:center;gap:28px}
+    .freebook-cover{width:200px}
+    .freebook .dl-row{align-items:center}
+  }
+
+  /* grids + cards */
+  .grid{display:grid;gap:34px 48px}
+  .grid.two{grid-template-columns:1fr 1fr}
+  .grid.three{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:760px){.grid.two,.grid.three{grid-template-columns:1fr}}
+  .card{padding:0}
+  .card .kicker{font-family:"Inter",sans-serif;font-weight:600;font-size:.7rem;letter-spacing:1.8px;text-transform:uppercase;color:var(--accent-ink)}
+  .card ul{margin:.5rem 0 0;padding-left:1.15rem}
+  .card ul li{margin:.3rem 0}
+  .card ul li::marker{color:var(--accent)}
+  .price{font-family:"Space Grotesk", sans-serif;font-weight:600;font-size:1.9rem;color:var(--ink);margin:.3rem 0}
+  .price small{font-size:.8rem;color:var(--muted);font-weight:400}
+  .badge{display:inline-block;font-family:"Inter",sans-serif;font-weight:600;font-size:.66rem;letter-spacing:1.2px;text-transform:uppercase;background:var(--accent-soft);color:var(--accent-ink);padding:4px 10px;border-radius:0;margin-bottom:10px}
+
+  /* chords */
+  .chords{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:10px}
+  .chord{padding:10px 6px;text-align:center;cursor:pointer;transition:.15s;user-select:none}
+  .chord:hover{transform:translateY(-3px)}
+  .chord .name{font-family:"Space Grotesk", sans-serif;font-weight:600;font-size:1.15rem;margin-bottom:2px}
+  .flat{font-weight:700;font-size:.72em;vertical-align:.28em;margin:0 .02em 0 -.02em}
+  .chord .hint{font-size:.62rem;color:var(--muted);letter-spacing:1px}
+  .chord svg{display:block;margin:6px auto 2px}
+
+  /* a famous sequence, three ways */
+  .ivi-list{display:flex;flex-direction:column;gap:40px;max-width:660px;margin:26px auto 0}
+  .ivi-lead{font-size:.98rem;color:var(--muted);margin-bottom:12px}
+  .ivi-lead b{color:var(--accent-ink)}
+  .ivi-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+  .ivi-row .chord.on{transform:translateY(-4px)}
+  .ivi-row .chord.on .name{color:var(--accent)}
+  .ivi-play-seq{cursor:pointer;user-select:none;color:var(--accent-ink);opacity:.55;font-size:1.2rem;padding:6px 8px;transition:.15s}
+  .ivi-play-seq:hover{opacity:1;color:var(--accent);transform:scale(1.12)}
+
+  /* about */
+  .about{display:grid;grid-template-columns:170px 1fr;gap:30px;align-items:start}
+  .about img{width:170px;height:170px;object-fit:cover;border-radius:50%}
+  @media(max-width:620px){.about{grid-template-columns:1fr}.about img{width:140px;height:140px}}
+
+  /* email capture */
+  .capture{text-align:center;padding:0}
+  .capture p{color:var(--muted)}
+  .capture form{display:flex;gap:10px;max-width:480px;margin:16px auto 6px;flex-wrap:wrap;justify-content:center}
+  .capture input{flex:1;min-width:210px;border:none;border-bottom:2px solid var(--line);background:none;padding:12px 4px;font-family:"Inter",sans-serif;font-size:.95rem;color:var(--ink)}
+  .capture input:focus{outline:none;border-bottom-color:var(--accent)}
+  .capture .note{font-size:.74rem;color:var(--muted);margin-top:10px}
+  #formMsg{margin-top:12px;font-size:.9rem;min-height:1.2em}
+
+  /* contact */
+  .contact-row{display:flex;gap:26px;flex-wrap:wrap;justify-content:center;align-items:center}
+  .contact-row a{display:inline-flex;align-items:center;justify-content:center;color:var(--ink);transition:.15s}
+  .contact-row a:hover{color:var(--accent);transform:translateY(-2px)}
+  .contact-row svg{display:block}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;text-align:center;color:var(--muted);font-size:.82rem}
+  footer .foot-logo{height:40px;width:auto;display:block;margin:0 auto 12px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="assets/logo-hor.png" alt="4StringLab" /></a>
+    <nav class="links">
+      <a href="#start"><span class="en">Start here</span><span class="pt">Comece aqui</span></a>
+      <a href="#courses"><span class="en">Courses</span><span class="pt">Cursos</span></a>
+      <a href="#play"><span class="en">Play</span><span class="pt">Toque</span></a>
+      <a href="#videos"><span class="en">Videos</span><span class="pt">Vídeos</span></a>
+      <a href="#freebook"><span class="en">Free ebook</span><span class="pt">Ebook grátis</span></a>
+      <a href="#about"><span class="en">About</span><span class="pt">Sobre</span></a>
+      <a href="#books"><span class="en">Books</span><span class="pt">Ebooks</span></a>
+      <a href="#contact"><span class="en">Contact</span><span class="pt">Contato</span></a>
+    </nav>
+    <span class="nav-social">
+      <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+        <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path fill="currentColor" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.02ZM12.05 20.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 5.83 2.42 8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.4-8.25 8.4Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14 0-.31-.01-.48-.01a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+      </a>
+      <a href="https://instagram.com/4stringlab" target="_blank" rel="noopener" aria-label="Instagram" title="@4stringlab">
+        <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.52.01-4.76.07-1.15.05-1.77.24-2.19.4-.55.22-.94.47-1.35.88-.41.41-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.19-.06 1.24-.07 1.61-.07 4.76s.01 3.52.07 4.76c.05 1.15.24 1.77.4 2.19.22.55.47.94.88 1.35.41.41.8.66 1.35.88.42.16 1.04.35 2.19.4 1.24.06 1.61.07 4.76.07s3.52-.01 4.76-.07c1.15-.05 1.77-.24 2.19-.4.55-.22.94-.47 1.35-.88.41-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.19.06-1.24.07-1.61.07-4.76s-.01-3.52-.07-4.76c-.05-1.15-.24-1.77-.4-2.19a3.63 3.63 0 0 0-.88-1.35 3.63 3.63 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.19-.4-1.24-.06-1.61-.07-4.76-.07Zm0 2.76a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 8.74a3.44 3.44 0 1 0 0-6.88 3.44 3.44 0 0 0 0 6.88Zm6.75-8.94a1.24 1.24 0 1 1-2.48 0 1.24 1.24 0 0 1 2.48 0Z"/></svg>
+      </a>
+      <a href="https://youtube.com/@4stringlab" target="_blank" rel="noopener" aria-label="YouTube" title="@4stringlab">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5C0 8.39 0 12 0 12s0 3.61.5 5.5a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14C24 15.61 24 12 24 12s0-3.61-.5-5.5ZM9.6 15.57V8.43L15.82 12 9.6 15.57Z"/></svg>
+      </a>
+    </span>
+    <button class="lang" id="langBtn" aria-label="Switch language" title="English / Portugues">
+      <span class="flag-en"><span class="fl">🇬🇧</span></span>
+      <span class="flag-pt"><span class="fl">🇧🇷</span></span>
+    </button>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- HERO -->
+<div class="wrap hero">
+  <img class="logo" src="assets/logo-vert.png" alt="4StringLab" />
+  <div class="tag">
+    <span class="en">Four strings. Infinite fun.</span>
+    <span class="pt">Quatro cordas. Diversão infinita.</span>
+  </div>
+  <p class="lead en">Welcome to your happy place. Whether you just unboxed your very first ukulele or you already strum circles around your friends, you are in good company. This is the lab where we experiment, mess up, laugh about it, and somehow come out playing better. No pressure, no music-theory gatekeeping. Just you, four strings, and that ridiculously satisfying moment when a song finally clicks.</p>
+  <p class="lead pt">Bem-vinda ao seu cantinho feliz. Se você tirou o seu primeiro ukulele da caixa agora há pouco ou já sai por aí dando um show pros amigos, seja bem-vinda. Esse é o laboratório onde a gente experimenta, erra, dá risada e, de algum jeito, sai tocando melhor no fim. Sem pressão, sem frescura de teoria musical. Só você, quatro cordas e aquele momento absurdamente gostoso quando a música finalmente encaixa.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="#courses"><span class="en">Explore the courses</span><span class="pt">Ver os cursos</span></a>
+    <a class="btn ghost" href="#freebook"><span class="en">Get the free ebook</span><span class="pt">Baixar o ebook grátis</span></a>
+  </div>
+</div>
+
+<!-- START HERE / TWO PATHS -->
+<section id="start">
+  <div class="wrap">
+    <img class="uke-divider" src="assets/uke.png" alt="" aria-hidden="true" />
+    <p class="eyebrow"><span class="en">Start here</span><span class="pt">Comece por aqui</span></p>
+    <h2><span class="en">Two ways in. Pick yours.</span><span class="pt">Dois caminhos. Escolha o seu.</span></h2>
+    <p class="muted"><span class="en">4StringLab is about how music actually moves, not just isolated chords. Tell me where you are and I will point you to the right place.</span><span class="pt">O 4StringLab é sobre como a música se move de verdade, não só acordes soltos. Me diga onde você está e eu te aponto o lugar certo.</span></p>
+
+    <div class="grid two" style="margin-top:24px">
+      <div class="card">
+        <span class="kicker"><span class="en">Path 1</span><span class="pt">Caminho 1</span></span>
+        <h3><span class="en">Brand new to the ukulele</span><span class="pt">Começando do zero no ukulele</span></h3>
+        <p class="muted"><span class="en">Never held one, or still figuring out which end to hold. We start with the basics that actually make sense, so you are playing real songs fast.</span><span class="pt">Nunca pegou um, ou ainda descobrindo por qual lado segurar. A gente começa pelo básico que faz sentido de verdade pra você tocar músicas de verdade rápido.</span></p>
+        <a class="btn ghost small" href="#courses"><span class="en">See the Beginner course</span><span class="pt">Ver o curso Básico</span></a>
+      </div>
+      <div class="card">
+        <span class="kicker"><span class="en">Path 2</span><span class="pt">Caminho 2</span></span>
+        <h3><span class="en">Already play, want richer harmony</span><span class="pt">Já toca e quer harmonia mais rica</span></h3>
+        <p class="muted"><span class="en">You know your open chords and want the sound of bossa nova, samba, choro and jazz. We break down the progressions that unlock hundreds of songs.</span><span class="pt">Você já manja os acordes abertos e quer o som de bossa nova, samba, choro e jazz. A gente destrincha as progressões que abrem centenas de músicas.</span></p>
+        <a class="btn ghost small" href="#courses"><span class="en">See the Harmony course</span><span class="pt">Ver o curso de Harmonia</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="wrap">
+    <img class="uke-divider" src="assets/uke.png" alt="" aria-hidden="true" />
+    <p class="eyebrow"><span class="en">The courses</span><span class="pt">Os cursos</span></p>
+    <h2><span class="en">From your first chord to Brazilian jazz</span><span class="pt">Do primeiro acorde ao jazz brasileiro</span></h2>
+
+    <div class="grid two" style="margin-top:24px">
+      <div class="card">
+        <span class="badge"><span class="en">Beginner</span><span class="pt">Básico</span></span>
+        <h3><span class="en">Ukulele Foundations</span><span class="pt">Fundamentos do Ukulele</span></h3>
+        <p class="muted"><span class="en"><b>For:</b> total beginners and anyone restarting after a long break.</span><span class="pt"><b>Para quem:</b> iniciantes totais e quem está recomeçando depois de um tempo.</span></p>
+        <p style="margin-bottom:.3rem"><b><span class="en">You will learn</span><span class="pt">Você vai aprender</span></b></p>
+        <ul class="muted">
+          <li><span class="en">Holding, tuning and your first clean chords</span><span class="pt">Como segurar, afinar e seus primeiros acordes limpos</span></li>
+          <li><span class="en">Strumming patterns that feel like music</span><span class="pt">Levadas que já soam como música</span></li>
+          <li><span class="en">Chord changes without stopping</span><span class="pt">Trocas de acorde sem travar</span></li>
+          <li><span class="en">Your first full songs, start to finish</span><span class="pt">Suas primeiras músicas completas, do início ao fim</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="badge"><span class="en">Intermediate</span><span class="pt">Intermediário</span></span>
+        <h3><span class="en">Brazilian &amp; Jazz Harmony</span><span class="pt">Harmonia Brasileira e Jazz</span></h3>
+        <p class="muted"><span class="en"><b>For:</b> players who know open chords and want music to move.</span><span class="pt"><b>Para quem:</b> já toca acordes abertos e quer que a música se mova.</span></p>
+        <p style="margin-bottom:.3rem"><b><span class="en">You will learn</span><span class="pt">Você vai aprender</span></b></p>
+        <ul class="muted">
+          <li><span class="en">The progressions behind bossa, samba, choro and jazz</span><span class="pt">As progressões por trás da bossa, samba, choro e jazz</span></li>
+          <li><span class="en">Guitar and piano voicings, reimagined on four strings</span><span class="pt">Vozes de violão e piano, repensadas em quatro cordas</span></li>
+          <li><span class="en">ii-V-I, chord melody and reharmonization basics</span><span class="pt">ii-V-I, chord melody e noções de reharmonização</span></li>
+          <li><span class="en">The why behind every chord change, explained simply</span><span class="pt">O porquê de cada troca de acorde, explicado de forma simples</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="muted center" style="margin-top:18px"><span class="en">Full courses are coming soon. Join the list below and you will be first to know, with an early-bird price.</span><span class="pt">Os cursos completos estão chegando. Entre na lista abaixo e você sabe primeiro, com preço de lançamento.</span></p>
+  </div>
+</section>
+
+<!-- PLAY / CHORDS -->
+<section id="play">
+  <div class="wrap center">
+    <img class="uke-divider" src="assets/uke.png" alt="" aria-hidden="true" />
+    <p class="eyebrow"><span class="en">Play</span><span class="pt">Toque</span></p>
+    <h2><span class="en">One idea, three flavors</span><span class="pt">Uma ideia, três sabores</span></h2>
+    <p class="muted"><span class="en">A chord sequence you have heard a thousand times. Start with the simple version, then hear the same idea get a little jazzy, and finally bloom into something richer. Learning to hear these changes, and to make them yourself, is exactly what I teach here. Tap any chord to hear it, or press play for the whole thing.</span><span class="pt">Uma sequência de acordes que você já ouviu mil vezes. Comece pela versão simples, depois ouça a mesma ideia ficar mais jazzística e, no fim, florescer em algo mais rico. Aprender a ouvir essas mudanças, e a fazer você mesmo, é exatamente o que eu ensino aqui. Toque em qualquer acorde para ouvir, ou aperte play para a sequência inteira.</span></p>
+    <div id="ivi" class="ivi-list"></div>
+
+    <p class="muted" style="font-size:.76rem;margin-top:26px"><span class="en">Turn your sound on. Audio is generated live in your browser.</span><span class="pt">Ligue o som. O áudio é gerado ao vivo no seu navegador.</span></p>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="wrap center">
+    <img class="uke-divider" src="assets/uke.png" alt="" aria-hidden="true" />
+    <p class="eyebrow"><span class="en">Watch</span><span class="pt">Assista</span></p>
+    <h2><span class="en">See the progressions in action</span><span class="pt">Veja as progressões em ação</span></h2>
+    <p class="muted" style="max-width:620px;margin-left:auto;margin-right:auto"><span class="en">I post videos breaking these progressions down: the shapes, the fingering, and how each change really sounds. Full walk-throughs on YouTube, quick ones on Instagram. Watch, then come back and play along.</span><span class="pt">Eu posto vídeos destrinchando essas progressões: as formas, a digitação e como cada mudança soa de verdade. Demonstrações completas no YouTube, e as rápidas no Instagram. Assista e depois volte aqui pra tocar junto.</span></p>
+    <p class="cta-row" style="margin-top:20px;justify-content:center">
+      <!-- Paste the link to your YouTube video (or channel) below -->
+      <a class="btn primary" href="https://youtube.com/@4stringlab" target="_blank" rel="noopener"><span class="en">Watch on YouTube</span><span class="pt">Ver no YouTube</span></a>
+      <!-- Paste the link to your Instagram video (or profile) below -->
+      <a class="btn" href="https://instagram.com/4stringlab" target="_blank" rel="noopener"><span class="en">Watch on Instagram</span><span class="pt">Ver no Instagram</span></a>
+    </p>
+  </div>
+</section>
+
+<!-- FREE EBOOK -->
+<section id="freebook" class="freebook">
+  <div class="wrap">
+    <div class="freebook-inner">
+      <img class="freebook-cover" src="assets/ebook-cover.png" alt="Ukulele Progressions ebook cover" />
+      <div>
+        <p class="eyebrow"><span class="en">Free ebook</span><span class="pt">Ebook grátis</span></p>
+        <h2><span class="en">Ukulele Progressions</span><span class="pt">Progressões no Ukulele</span></h2>
+        <p><span class="en">My little book on the circle progression that shows up everywhere, from pop to bossa nova. Learn it in all twelve keys, with chord diagrams and the why behind every change. It comes in two versions, English and Portuguese, so download the one you prefer.</span><span class="pt">Meu livrinho sobre a progressão que aparece em tudo, do pop à bossa nova. Aprenda ela nos doze tons, com diagramas de acordes e o porquê de cada mudança. Vem em duas versões, inglês e português, então baixe a que você preferir.</span></p>
+        <p class="dl-row">
+          <a class="btn primary small" href="assets/ebook-progressions-en.pdf" download>English (PDF)</a>
+          <a class="btn small" href="assets/ebook-progressions-pt.pdf" download>Português (PDF)</a>
+        </p>
+        <p class="muted" style="font-size:.8rem;margin-top:6px"><span class="en">Free, and no email required.</span><span class="pt">Grátis, e sem precisar de email.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <img class="uke-divider" src="assets/uke.png" alt="" aria-hidden="true" />
+    <p class="eyebrow"><span class="en">About</span><span class="pt">Sobre</span></p>
+    <div class="about">
+      <img src="assets/ieda.jpg" alt="Ieda" />
+      <div>
+        <h2><span class="en">Hi, I am Ieda</span><span class="pt">Oi, eu sou a Ieda</span></h2>
+        <p class="en">I play saxophone and guitar, and a few years ago I fell for the ukulele. I started 4StringLab as a way to document my own path through jazz and Brazilian music on this tiny instrument. The idea is to chase the sounds of the guitar and the piano on the ukulele, with the beautiful challenge of doing it all on four strings.</p>
+        <p class="en">I am from Sao Paulo, Brazil, and I teach the music I grew up loving, with no black boxes. Just the why behind every chord change, explained simply. New lessons regularly. Subscribe and play along.</p>
+        <p class="pt">Eu toco sax e violão e, há alguns anos, me apaixonei pelo ukulele. Criei o 4StringLab como um jeito de registrar o meu próprio caminho pelo jazz e pela música brasileira nesse instrumento pequenininho. A ideia é explorar no ukulele as sonoridades do violão e do piano, com o desafio lindo de fazer tudo isso em quatro cordas.</p>
+        <p class="pt">Sou de São Paulo e ensino a música que aprendi a amar, sem caixas-pretas. Só o porquê de cada troca de acorde, explicado de forma simples. Aulas novas com frequência. Se inscreva e toque junto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKS -->
+<section id="books">
+  <div class="wrap">
+    <img class="uke-divider" src="assets/uke.png" alt="" aria-hidden="true" />
+    <p class="eyebrow"><span class="en">Ebooks</span><span class="pt">Ebooks</span></p>
+    <h2><span class="en">Learn at your own pace</span><span class="pt">Aprenda no seu ritmo</span></h2>
+
+    <div class="grid two" style="margin-top:24px">
+      <div class="card">
+        <h3><span class="en">Beginner's Path</span><span class="pt">Trilha do Iniciante</span></h3>
+        <div class="price">R$ 49</div>
+        <p class="muted"><span class="en">Everything to go from zero to your first songs.</span><span class="pt">Tudo para ir do zero às suas primeiras músicas.</span></p>
+        <!-- Paste your Hotmart / Gumroad product link in href below -->
+        <a class="btn ghost small" href="#" data-buy="beginner"><span class="en">Buy</span><span class="pt">Comprar</span></a>
+      </div>
+      <div class="card">
+        <h3><span class="en">Brazilian Harmony</span><span class="pt">Harmonia Brasileira</span></h3>
+        <div class="price">R$ 59</div>
+        <p class="muted"><span class="en">Bossa, samba, choro and jazz progressions on the ukulele.</span><span class="pt">Progressões de bossa, samba, choro e jazz no ukulele.</span></p>
+        <a class="btn ghost small" href="#" data-buy="harmony"><span class="en">Buy</span><span class="pt">Comprar</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL CAPTURE -->
+<section id="capture">
+  <div class="wrap">
+    <div class="capture">
+      <img class="uke-divider" src="assets/uke.png" alt="" aria-hidden="true" />
+      <h2><span class="en">New lessons in your inbox</span><span class="pt">Aulas novas no seu email</span></h2>
+      <p><span class="en">Already grabbed the free ebook above? Join the list for new lessons, progressions, and a heads-up when the course opens.</span><span class="pt">Já baixou o ebook grátis aí em cima? Entre na lista para receber aulas novas, progressões e um aviso quando o curso abrir.</span></p>
+      <form id="signup">
+        <input type="email" id="email" required placeholder="you@email.com" aria-label="Email" />
+        <button class="btn" type="submit"><span class="en">Join the list</span><span class="pt">Entrar na lista</span></button>
+      </form>
+      <div id="formMsg"></div>
+      <p class="note"><span class="en">No spam. Unsubscribe anytime.</span><span class="pt">Sem spam. Cancele quando quiser.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap center">
+    <img class="uke-divider" src="assets/uke.png" alt="" aria-hidden="true" />
+    <p class="eyebrow"><span class="en">Contact</span><span class="pt">Contato</span></p>
+    <h2><span class="en">Let us make some noise</span><span class="pt">Bora fazer barulho</span></h2>
+    <p class="muted"><span class="en">Questions, custom lessons, or just want to say hi? Reach out.</span><span class="pt">Dúvidas, aulas particulares, ou só quer dar um oi? Fala comigo.</span></p>
+    <div class="contact-row" style="margin-top:22px">
+      <!-- Replace the number below with your real WhatsApp (format 55 + DDD + number) -->
+      <a href="https://wa.me/55XXXXXXXXXXX" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp">
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M19.05 4.91A9.82 9.82 0 0 0 12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.91-7.02ZM12.05 20.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 5.83 2.42 8.2 8.2 0 0 1 2.41 5.83c0 4.54-3.7 8.4-8.25 8.4Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43-.14 0-.31-.01-.48-.01a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
+      </a>
+      <a href="https://instagram.com/4stringlab" target="_blank" rel="noopener" aria-label="Instagram" title="@4stringlab">
+        <svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.52.01-4.76.07-1.15.05-1.77.24-2.19.4-.55.22-.94.47-1.35.88-.41.41-.66.8-.88 1.35-.16.42-.35 1.04-.4 2.19-.06 1.24-.07 1.61-.07 4.76s.01 3.52.07 4.76c.05 1.15.24 1.77.4 2.19.22.55.47.94.88 1.35.41.41.8.66 1.35.88.42.16 1.04.35 2.19.4 1.24.06 1.61.07 4.76.07s3.52-.01 4.76-.07c1.15-.05 1.77-.24 2.19-.4.55-.22.94-.47 1.35-.88.41-.41.66-.8.88-1.35.16-.42.35-1.04.4-2.19.06-1.24.07-1.61.07-4.76s-.01-3.52-.07-4.76c-.05-1.15-.24-1.77-.4-2.19a3.63 3.63 0 0 0-.88-1.35 3.63 3.63 0 0 0-1.35-.88c-.42-.16-1.04-.35-2.19-.4-1.24-.06-1.61-.07-4.76-.07Zm0 2.76a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6Zm0 8.74a3.44 3.44 0 1 0 0-6.88 3.44 3.44 0 0 0 0 6.88Zm6.75-8.94a1.24 1.24 0 1 1-2.48 0 1.24 1.24 0 0 1 2.48 0Z"/></svg>
+      </a>
+      <a href="https://youtube.com/@4stringlab" target="_blank" rel="noopener" aria-label="YouTube" title="@4stringlab">
+        <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5C0 8.39 0 12 0 12s0 3.61.5 5.5a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14C24 15.61 24 12 24 12s0-3.61-.5-5.5ZM9.6 15.57V8.43L15.82 12 9.6 15.57Z"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img class="foot-logo" src="assets/logo-hor.png" alt="4StringLab" />
+    <p><span class="en">Ukulele, jazz &amp; Brazilian harmony · Sao Paulo, Brazil</span><span class="pt">Ukulele, jazz e harmonia brasileira · São Paulo, Brasil</span></p>
+    <p>&copy; <span id="year"></span> 4StringLab</p>
+  </div>
+</footer>
+
+<script>
+  /* ---------- language toggle (English default) ---------- */
+  var langBtn = document.getElementById('langBtn');
+  function setLang(l){
+    document.body.classList.toggle('lang-pt', l === 'pt');
+    document.documentElement.lang = l;
+    try{ localStorage.setItem('4sl-lang', l); }catch(e){}
+  }
+  var saved = null;
+  try{ saved = localStorage.getItem('4sl-lang'); }catch(e){}
+  if(saved === 'pt'){ setLang('pt'); }
+  langBtn.addEventListener('click', function(){
+    setLang(document.body.classList.contains('lang-pt') ? 'en' : 'pt');
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* ---------- playable ukulele chords (Web Audio) ---------- */
+  // Open string frequencies, high-G reentrant tuning: g C E A (strings 4,3,2,1)
+  var OPEN = [392.00, 261.63, 329.63, 440.00]; // g C E A
+  var actx = null;
+  function ac(){ if(!actx){ actx = new (window.AudioContext||window.webkitAudioContext)(); } return actx; }
+  function pluck(freq, when, gainNode){
+    var ctx = ac();
+    var o = ctx.createOscillator();
+    var g = ctx.createGain();
+    o.type = 'triangle';
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, when);
+    g.gain.exponentialRampToValueAtTime(0.26, when + 0.008);
+    g.gain.exponentialRampToValueAtTime(0.0001, when + 1.6);
+    o.connect(g); g.connect(gainNode);
+    o.start(when); o.stop(when + 1.7);
+  }
+  function strum(frets, when){
+    var ctx = ac();
+    if(ctx.state === 'suspended'){ ctx.resume(); }
+    var master = ctx.createGain();
+    master.gain.value = 0.85;
+    master.connect(ctx.destination);
+    var t0 = (when != null ? when : ctx.currentTime + 0.02);
+    for(var i=0;i<4;i++){
+      var f = OPEN[i] * Math.pow(2, frets[i]/12);
+      pluck(f, t0 + i*0.045, master);
+    }
+    return t0;
+  }
+
+  // Build a small SVG diagram: 4 strings, 4 frets
+  function diagram(frets){
+    var W=64, H=78, top=14, left=9, right=W-9, span=right-left;
+    var strings=4, fretCount=4;
+    var colGap = span/(strings-1);
+    var rowGap = (H-top-8)/fretCount;
+    var s = '<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'">';
+    s += '<rect x="'+left+'" y="'+top+'" width="'+span+'" height="3.5" rx="1" fill="#241c18"/>';
+    for(var r=1;r<=fretCount;r++){
+      var y = top + r*rowGap;
+      s += '<line x1="'+left+'" y1="'+y+'" x2="'+right+'" y2="'+y+'" stroke="#ded4c5" stroke-width="1"/>';
+    }
+    for(var c=0;c<strings;c++){
+      var x = left + c*colGap;
+      s += '<line x1="'+x+'" y1="'+top+'" x2="'+x+'" y2="'+(top+fretCount*rowGap)+'" stroke="#cdc2b2" stroke-width="1"/>';
+    }
+    for(var i=0;i<4;i++){
+      var x = left + i*colGap;
+      var fr = frets[i];
+      if(fr === 0){
+        s += '<circle cx="'+x+'" cy="'+(top-6)+'" r="3" fill="none" stroke="#6c38c3" stroke-width="1.4"/>';
+      } else {
+        var y = top + (fr-0.5)*rowGap;
+        s += '<circle cx="'+x+'" cy="'+y+'" r="5.4" fill="#6c38c3"/>';
+      }
+    }
+    s += '</svg>';
+    return s;
+  }
+
+  /* ---------- a famous sequence, three ways ---------- */
+  // Voicings as ukulele frets [g,C,E,A] (from Ieda's chart), near the nut so they draw cleanly
+  var IVI = [
+    { lead:{ en:'<b>1.</b> The most common version, the one you learn first.',
+             pt:'<b>1.</b> A versão mais comum, a que o iniciante aprende primeiro.' },
+      chords:[ {name:'C',frets:[0,0,0,3]}, {name:'Dm',frets:[2,2,1,0]}, {name:'G7',frets:[0,2,1,2]}, {name:'C',frets:[0,0,0,3]} ] },
+    { lead:{ en:'<b>2.</b> The same idea, with a jazzy touch.',
+             pt:'<b>2.</b> A mesma ideia, com um toque de jazz.' },
+      chords:[ {name:'Cmaj7',frets:[0,0,0,2]}, {name:'Dm7',frets:[2,2,1,3]}, {name:'G7<span class="flat">b</span>9',frets:[1,2,1,2]}, {name:'Cmaj7',frets:[0,0,0,2]} ] },
+    { lead:{ en:'<b>3.</b> And the same idea, more sophisticated.',
+             pt:'<b>3.</b> E a mesma ideia, mais sofisticada.' },
+      chords:[ {name:'CM9',frets:[0,2,0,2]}, {name:'E<span class="flat">b</span>13',frets:[0,1,1,3]}, {name:'D13',frets:[2,0,2,2]}, {name:'D7(<span class="flat">b</span>13)',frets:[2,0,2,1]}, {name:'CM9',frets:[0,2,0,2]} ] }
+  ];
+  var iviHost = document.getElementById('ivi');
+  var iviPlaying = false;
+  IVI.forEach(function(item){
+    var wrap = document.createElement('div');
+    var lead = document.createElement('div');
+    lead.className = 'ivi-lead';
+    lead.innerHTML = '<span class="en">'+item.lead.en+'</span><span class="pt">'+item.lead.pt+'</span>';
+    var row = document.createElement('div');
+    row.className = 'ivi-row';
+    var tiles = [];
+    item.chords.forEach(function(ch){
+      var el = document.createElement('div');
+      el.className = 'chord';
+      el.setAttribute('role','button');
+      el.setAttribute('tabindex','0');
+      el.innerHTML = '<div class="name">'+ch.name+'</div>' + diagram(ch.frets);
+      el.addEventListener('click', function(){ strum(ch.frets); });
+      el.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); strum(ch.frets); } });
+      row.appendChild(el);
+      tiles.push(el);
+    });
+    var playBtn = document.createElement('span');
+    playBtn.className = 'ivi-play-seq';
+    playBtn.setAttribute('role','button');
+    playBtn.setAttribute('tabindex','0');
+    playBtn.setAttribute('aria-label','Play sequence');
+    playBtn.textContent = '▶';
+    function playSeq(){
+      if(iviPlaying){ return; }
+      iviPlaying = true;
+      var ctx = ac();
+      if(ctx.state === 'suspended'){ ctx.resume(); }
+      var beat = 0.9;
+      var start = ctx.currentTime + 0.06;
+      item.chords.forEach(function(ch, i){
+        strum(ch.frets, start + i*beat);
+        var d = (start - ctx.currentTime + i*beat) * 1000;
+        setTimeout(function(){
+          tiles.forEach(function(t){ t.classList.remove('on'); });
+          if(tiles[i]){ tiles[i].classList.add('on'); }
+        }, d);
+      });
+      var tot = (start - ctx.currentTime + item.chords.length*beat) * 1000;
+      setTimeout(function(){
+        tiles.forEach(function(t){ t.classList.remove('on'); });
+        iviPlaying = false;
+      }, tot + 250);
+    }
+    playBtn.addEventListener('click', playSeq);
+    playBtn.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); playSeq(); } });
+    row.appendChild(playBtn);
+    wrap.appendChild(lead); wrap.appendChild(row);
+    iviHost.appendChild(wrap);
+  });
+
+  /* ---------- email capture ---------- */
+  // OPTIONAL: paste your n8n webhook URL here to collect emails.
+  var WEBHOOK_URL = ''; // e.g. 'https://n8n.yourdomain/webhook/4sl-signup'
+  var form = document.getElementById('signup');
+  var msg = document.getElementById('formMsg');
+  var isPt = function(){ return document.body.classList.contains('lang-pt'); };
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('email').value.trim();
+    if(!email){ return; }
+    function ok(){
+      msg.style.color = '#552a9c';
+      msg.textContent = isPt() ? 'Prontinho! Confira sua caixa de entrada.' : 'Done! Check your inbox.';
+      form.reset();
+    }
+    if(WEBHOOK_URL){
+      fetch(WEBHOOK_URL, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ email: email, source: '4stringlab.com.br', lang: isPt()?'pt':'en' })
+      }).then(ok).catch(function(){
+        msg.style.color = '#b3261e';
+        msg.textContent = isPt() ? 'Algo deu errado, tente de novo.' : 'Something went wrong, please try again.';
+      });
+    } else {
+      ok(); // no backend yet, front-end confirmation only
+    }
+  });
+
+  /* ---------- buy buttons placeholder ---------- */
+  // Paste your Hotmart / Gumroad product links into the href of each [data-buy] link.
+  document.querySelectorAll('[data-buy]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      if(a.getAttribute('href') === '#'){
+        e.preventDefault();
+        alert(isPt()
+          ? 'Link de compra em breve. Cole o link do Hotmart/Gumroad neste botao.'
+          : 'Checkout link coming soon. Paste your Hotmart/Gumroad link into this button.');
+      }
+    });
+  });
+</script>
+</body>
+</html>
