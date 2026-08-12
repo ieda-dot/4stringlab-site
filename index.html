@@ -99,10 +99,14 @@
   .freebook-inner{display:grid;grid-template-columns:230px 1fr;gap:44px;align-items:center}
   .freebook-cover{width:230px;height:auto;display:block;box-shadow:0 20px 44px rgba(36,28,24,.16)}
   .freebook .eyebrow{margin-top:0}
+  .ebook-form{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:6px 0 4px}
+  .ebook-form input{border:none;border-bottom:2px solid var(--accent);background:transparent;padding:10px 4px;font-family:"Inter",sans-serif;font-size:.95rem;color:var(--ink);min-width:230px}
+  .ebook-form input:focus{outline:none;border-bottom-color:var(--accent-ink)}
   @media(max-width:640px){
     .freebook-inner{grid-template-columns:1fr;justify-items:center;text-align:center;gap:28px}
     .freebook-cover{width:200px}
     .freebook .dl-row{align-items:center}
+    .ebook-form{justify-content:center}
   }
 
   /* grids + cards */
@@ -312,11 +316,16 @@
         <p class="eyebrow"><span class="en">Free ebook</span><span class="pt">Ebook grátis</span></p>
         <h2><span class="en">Ukulele Progressions</span><span class="pt">Progressões no Ukulele</span></h2>
         <p><span class="en">My little book on the circle progression that shows up everywhere, from pop to bossa nova. Learn it in all twelve keys, with chord diagrams and the why behind every change. It comes in two versions, English and Portuguese, so download the one you prefer.</span><span class="pt">Meu livrinho sobre a progressão que aparece em tudo, do pop à bossa nova. Aprenda ela nos doze tons, com diagramas de acordes e o porquê de cada mudança. Vem em duas versões, inglês e português, então baixe a que você preferir.</span></p>
-        <p class="dl-row">
+        <form id="ebookform" class="ebook-form">
+          <input type="email" id="ebookEmail" required placeholder="you@email.com" aria-label="Email" />
+          <button class="btn primary" type="submit"><span class="en">Send me the ebook</span><span class="pt">Quero o ebook</span></button>
+        </form>
+        <div id="ebookMsg" class="muted" style="font-size:.85rem;min-height:1.1em;margin:2px 0"></div>
+        <p class="dl-row" id="ebookLinks" hidden>
           <a class="btn primary small" href="assets/ebook-progressions-en.pdf" download>English (PDF)</a>
           <a class="btn small" href="assets/ebook-progressions-pt.pdf" download>Português (PDF)</a>
         </p>
-        <p class="muted" style="font-size:.8rem;margin-top:6px"><span class="en">Free, and no email required.</span><span class="pt">Grátis, e sem precisar de email.</span></p>
+        <p class="muted" style="font-size:.8rem;margin-top:6px"><span class="en">Free. Enter your email and the download links appear (also sent to your inbox).</span><span class="pt">Grátis. Coloque seu email e os links de download aparecem (também vão pra sua caixa de entrada).</span></p>
       </div>
     </div>
   </div>
@@ -560,7 +569,7 @@
 
   /* ---------- email capture ---------- */
   // OPTIONAL: paste your n8n webhook URL here to collect emails.
-  var WEBHOOK_URL = ''; // e.g. 'https://n8n.yourdomain/webhook/4sl-signup'
+  var WEBHOOK_URL = 'https://n8n-n8n.dttn9r.easypanel.host/webhook/4sl-ebook';
   var form = document.getElementById('signup');
   var msg = document.getElementById('formMsg');
   var isPt = function(){ return document.body.classList.contains('lang-pt'); };
@@ -575,8 +584,8 @@
     }
     if(WEBHOOK_URL){
       fetch(WEBHOOK_URL, {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ email: email, source: '4stringlab.com.br', lang: isPt()?'pt':'en' })
+        method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
+        body: 'email='+encodeURIComponent(email)+'&source=newsletter&lang='+(isPt()?'pt':'en')
       }).then(ok).catch(function(){
         msg.style.color = '#b3261e';
         msg.textContent = isPt() ? 'Algo deu errado, tente de novo.' : 'Something went wrong, please try again.';
@@ -585,6 +594,34 @@
       ok(); // no backend yet, front-end confirmation only
     }
   });
+
+  /* ---------- free ebook: collect email, then reveal downloads ---------- */
+  var ebookForm = document.getElementById('ebookform');
+  if(ebookForm){
+    var ebookMsg = document.getElementById('ebookMsg');
+    var ebookLinks = document.getElementById('ebookLinks');
+    ebookForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = document.getElementById('ebookEmail').value.trim();
+      if(!email){ return; }
+      function reveal(){
+        ebookForm.hidden = true;
+        ebookLinks.hidden = false;
+        ebookMsg.style.color = '#552a9c';
+        ebookMsg.textContent = isPt()
+          ? 'Prontinho! Baixe abaixo (e confira seu email).'
+          : 'Done! Download below (and check your inbox).';
+      }
+      if(WEBHOOK_URL){
+        fetch(WEBHOOK_URL, {
+          method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
+          body: 'email='+encodeURIComponent(email)+'&source=ebook-progressions&lang='+(isPt()?'pt':'en')
+        }).then(reveal).catch(reveal); // reveal even if the webhook hiccups, so the user is never blocked
+      } else {
+        reveal(); // no webhook yet: still let them download (email not stored until WEBHOOK_URL is set)
+      }
+    });
+  }
 
   /* ---------- buy buttons placeholder ---------- */
   // Paste your Hotmart / Gumroad product links into the href of each [data-buy] link.
