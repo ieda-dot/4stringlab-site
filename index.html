@@ -322,11 +322,7 @@
           <button class="btn primary" type="submit"><span class="en">Send me the ebook</span><span class="pt">Quero o ebook</span></button>
         </form>
         <div id="ebookMsg" class="muted" style="font-size:.85rem;min-height:1.1em;margin:2px 0"></div>
-        <p class="dl-row" id="ebookLinks" hidden>
-          <a class="btn primary small" href="assets/ebook-progressions-en.pdf" download>English (PDF)</a>
-          <a class="btn small" href="assets/ebook-progressions-pt.pdf" download>Português (PDF)</a>
-        </p>
-        <p class="muted" style="font-size:.8rem;margin-top:6px"><span class="en">Free. Enter your email and the download links appear (also sent to your inbox).</span><span class="pt">Grátis. Coloque seu email e os links de download aparecem (também vão pra sua caixa de entrada).</span></p>
+        <p class="muted" style="font-size:.8rem;margin-top:6px"><span class="en">Free. Enter your email and the ebook downloads right away.</span><span class="pt">Grátis. Coloque seu email e o ebook baixa na hora.</span></p>
       </div>
     </div>
   </div>
@@ -580,7 +576,7 @@
     if(!email){ return; }
     function ok(){
       msg.style.color = '#552a9c';
-      msg.textContent = isPt() ? 'Prontinho! Confira sua caixa de entrada.' : 'Done! Check your inbox.';
+      msg.textContent = isPt() ? 'Prontinho! Você está na lista.' : 'Done! You are on the list.';
       form.reset();
     }
     if(WEBHOOK_URL){
@@ -600,26 +596,26 @@
   var ebookForm = document.getElementById('ebookform');
   if(ebookForm){
     var ebookMsg = document.getElementById('ebookMsg');
-    var ebookLinks = document.getElementById('ebookLinks');
     ebookForm.addEventListener('submit', function(e){
       e.preventDefault();
       var email = document.getElementById('ebookEmail').value.trim();
       if(!email){ return; }
-      function reveal(){
-        ebookForm.hidden = true;
-        ebookLinks.hidden = false;
-        ebookMsg.style.color = '#552a9c';
-        ebookMsg.textContent = isPt()
-          ? 'Prontinho! Baixe abaixo (e confira seu email).'
-          : 'Done! Download below (and check your inbox).';
-      }
+      var pt = document.body.classList.contains('lang-pt');
+      // start the download right away, in the language the site is showing
+      var a = document.createElement('a');
+      a.href = pt ? 'assets/ebook-progressions-pt.pdf' : 'assets/ebook-progressions-en.pdf';
+      a.setAttribute('download', '');
+      document.body.appendChild(a); a.click(); a.remove();
+      // confirm and hide the form
+      ebookForm.hidden = true;
+      ebookMsg.style.color = '#552a9c';
+      ebookMsg.textContent = pt ? 'Prontinho! O download começou.' : 'Done! Your download is starting.';
+      // send the email to n8n in the background (never blocks the download)
       if(WEBHOOK_URL){
         fetch(WEBHOOK_URL, {
           method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'},
-          body: 'email='+encodeURIComponent(email)+'&source=ebook-progressions&lang='+(isPt()?'pt':'en')
-        }).then(reveal).catch(reveal); // reveal even if the webhook hiccups, so the user is never blocked
-      } else {
-        reveal(); // no webhook yet: still let them download (email not stored until WEBHOOK_URL is set)
+          body: 'email='+encodeURIComponent(email)+'&source=ebook-progressions&lang='+(pt?'pt':'en')
+        }).catch(function(){});
       }
     });
   }
