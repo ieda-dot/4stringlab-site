@@ -80,13 +80,22 @@
   @media(max-width:760px){.nav .links{display:none}.nav-social{margin-left:auto}.lang{margin-left:12px}}
 
   /* hero */
-  .hero{text-align:center;padding:60px 0 66px}
-  .hero img.logo{width:min(320px,78vw);height:auto;margin:0 auto 10px;display:block}
-  .hero h1{margin:.1rem 0 .2rem}
-  .hero h1 b{color:var(--accent);font-weight:700}
-  .hero .tag{font-family:"Space Grotesk", sans-serif;font-weight:500;font-size:1.2rem;letter-spacing:.2px;color:var(--accent);margin:.1rem 0 1.3rem}
-  .hero p.lead{max-width:660px;margin:0 auto 1.6rem;font-size:1.05rem}
-  .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .hero{padding:48px 0 58px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+  .hero-text{text-align:left}
+  .hero-text .logo{width:min(300px,72vw);height:auto;margin:0 0 10px;display:block}
+  .hero .tag{font-family:"Space Grotesk", sans-serif;font-weight:500;font-size:1.2rem;letter-spacing:.2px;color:var(--accent);margin:.1rem 0 1.2rem}
+  .hero p.lead{margin:0 0 1.4rem;font-size:1.05rem}
+  .hero-photo img{width:100%;height:auto;display:block}
+  .cta-row{display:flex;gap:12px;justify-content:flex-start;flex-wrap:wrap}
+  @media(max-width:760px){
+    .hero-grid{grid-template-columns:1fr;gap:30px}
+    .hero-text{text-align:center}
+    .hero-text .logo{margin-left:auto;margin-right:auto}
+    .hero p.lead{max-width:620px;margin-left:auto;margin-right:auto}
+    .hero .cta-row{justify-content:center}
+    .hero-photo{max-width:400px;margin:0 auto}
+  }
   .btn{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-family:"Inter",sans-serif;font-weight:600;font-size:.98rem;color:var(--accent-ink);border:none;background:none;padding:0 0 3px;cursor:pointer;line-height:1.4;border-bottom:2px solid var(--accent-soft);transition:.15s}
   .btn::after{content:"\2192";transition:transform .15s}
   .btn:hover{border-bottom-color:var(--accent)}
@@ -204,16 +213,23 @@
 
 <!-- HERO -->
 <div class="wrap hero">
-  <img class="logo" src="assets/logo-vert.png" alt="4StringLab" />
-  <div class="tag">
-    <span class="en">Four strings. Infinite fun.</span>
-    <span class="pt">Quatro cordas. Diversão infinita.</span>
-  </div>
-  <p class="lead en">Welcome to your happy place. Whether you just unboxed your very first ukulele or you already strum circles around your friends, you are in good company. This is the lab where we experiment, mess up, laugh about it, and somehow come out playing better. No pressure, no music-theory gatekeeping. Just you, four strings, and that ridiculously satisfying moment when a song finally clicks.</p>
-  <p class="lead pt">Bem-vinda ao seu cantinho feliz. Se você tirou o seu primeiro ukulele da caixa agora há pouco ou já sai por aí dando um show pros amigos, seja bem-vinda. Esse é o laboratório onde a gente experimenta, erra, dá risada e, de algum jeito, sai tocando melhor no fim. Sem pressão, sem frescura de teoria musical. Só você, quatro cordas e aquele momento absurdamente gostoso quando a música finalmente encaixa.</p>
-  <div class="cta-row">
-    <a class="btn primary" href="#courses"><span class="en">Explore the courses</span><span class="pt">Ver os cursos</span></a>
-    <a class="btn ghost" href="#freebook"><span class="en">Get the free ebook</span><span class="pt">Baixar o ebook grátis</span></a>
+  <div class="hero-grid">
+    <div class="hero-text">
+      <img class="logo" src="assets/logo-vert.png" alt="4StringLab" />
+      <div class="tag">
+        <span class="en">Four strings. Infinite fun.</span>
+        <span class="pt">Quatro cordas. Diversão infinita.</span>
+      </div>
+      <p class="lead en">Welcome to your happy place. Whether you just unboxed your very first ukulele or you already strum circles around your friends, you are in good company. This is the lab where we experiment, mess up, laugh about it, and somehow come out playing better. No pressure, no music-theory gatekeeping. Just you, four strings, and that ridiculously satisfying moment when a song finally clicks.</p>
+      <p class="lead pt">Bem-vinda ao seu cantinho feliz. Se você tirou o seu primeiro ukulele da caixa agora há pouco ou já sai por aí dando um show pros amigos, seja bem-vinda. Esse é o laboratório onde a gente experimenta, erra, dá risada e, de algum jeito, sai tocando melhor no fim. Sem pressão, sem frescura de teoria musical. Só você, quatro cordas e aquele momento absurdamente gostoso quando a música finalmente encaixa.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#courses"><span class="en">Explore the courses</span><span class="pt">Ver os cursos</span></a>
+        <a class="btn ghost" href="#freebook"><span class="en">Get the free ebook</span><span class="pt">Baixar o ebook grátis</span></a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="assets/ieda-beach.jpg" alt="Ieda playing the ukulele on the beach" />
+    </div>
   </div>
 </div>
 
@@ -312,7 +328,7 @@
 <section id="freebook" class="freebook">
   <div class="wrap">
     <div class="freebook-inner">
-      <img class="freebook-cover" src="assets/ebook-cover.png" alt="Ukulele Progressions ebook cover" />
+      <img class="freebook-cover" src="assets/ebook-cover.png?v=2" alt="Ukulele Progressions ebook cover" />
       <div>
         <p class="eyebrow"><span class="en">Free ebook</span><span class="pt">Ebook grátis</span></p>
         <h2><span class="en">Ukulele Progressions</span><span class="pt">Progressões no Ukulele</span></h2>
